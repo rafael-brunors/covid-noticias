@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="../WEB-INF/templates/Template.xhtml">
+	
+	<ui:define name="title">
+		#{msg.cadastro_noticia_lista}
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form id="frm">
+			<div class="ui-fluid">
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<div class="card">
+							<h1>#{msg.cadastro_noticia_lista}</h1>
+							
+							<p:dataTable id="tabela" var="item" value="#{cadastroNoticiaListaBean.noticias}" emptyMessage="Tabela vazia!" paginator="true" rows="50" rowsPerPageTemplate="50, 100, 150, 200, 250, 500"
+								filteredValue="#{cadastroNoticiaListaBean.filtradas}" resizableColumns="true" widgetVar="table" selectionMode="single" rowKey="#{item}" reflow="true" >
+								<f:facet name="header">
+						            <p:outputPanel>
+										<p:button value="#{msg.button_novo}" outcome="#{cadastroNoticiaListaBean.navegarParaCadastro()}" style="width:100px;"/>
+						                <p:spacer width="15px" />
+						                
+						                <h:outputText value="#{msg.tabela_pesquisar_todos_campos}" />
+						                <p:inputText id="globalFilter" onkeyup="PF('table').filter()" style="width:150px" placeholder="#{msg.tabela_pesquisar_todos_campos_placeholder}"/>
+						            </p:outputPanel>
+						        </f:facet>
+						        
+						        <p:column headerText="#{msg.tabela_noticia_id}" filterBy="#{item.id}" sortBy="#{item.id}" >
+									<h:outputText value="#{item.id}" />
+								</p:column>
+						        <p:column headerText="#{msg.tabela_noticia_titulo}" filterBy="#{item.titulo}" sortBy="#{item.titulo}" >
+									<h:outputText value="#{item.titulo}" />
+								</p:column>
+						        <p:column headerText="#{msg.tabela_noticia_autor}" filterBy="#{item.autor}" sortBy="#{item.autor}" >
+									<h:outputText value="#{item.autor}" />
+								</p:column>
+						        <p:column headerText="#{msg.tabela_noticia_data_criacao}" filterBy="#{formatDateBean.format(item.dataCriacao)}" sortBy="#{formatDateBean.format(item.dataCriacao)}" styleClass="text-center" >
+									<h:outputText value="#{formatDateBean.format(item.dataCriacao)}" />
+								</p:column>
+						        <p:column headerText="#{msg.tabela_noticia_data_atualizacao}" filterBy="#{formatDateBean.format(item.dataAtualizacao)}" sortBy="#{formatDateBean.format(item.dataAtualizacao)}" styleClass="text-center" >
+									<h:outputText value="#{formatDateBean.format(item.dataAtualizacao)}" />
+								</p:column>
+								<p:column style="width:90px; heigth: 5px !important; text-align: center;">
+									<p:button title="#{msg.tabela_editar_title}" outcome="#{cadastroNoticiaListaBean.navegarParaCadastro()}" process="@this" icon="pi pi-pencil" style="width: 30px">
+										<f:param name="id" value="#{item.id}" /> 
+									</p:button>
+									
+						            <p:commandButton title="#{msg.tabela_excluir_title}" action="#{cadastroNoticiaBean.excluir()}" update="@form" icon="pi pi-trash" style="width: 30px">
+						            	<p:confirm header="#{msg.confirmar_exclusao_header}" message="#{msg.confirmar_exclusao}" icon="ui-icon-alert" />
+						                <f:setPropertyActionListener value="#{item}" target="#{cadastroNoticiaBean.noticia}" />
+						            </p:commandButton>
+						        </p:column>
+					        </p:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+	        	<p:commandButton value="#{msg.button_sim}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		        <p:commandButton value="#{msg.button_nao}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		    </p:confirmDialog>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

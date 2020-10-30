@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="../WEB-INF/templates/Template.xhtml">
+	
+	<ui:define name="title">
+		#{msg.cadastro_noticia}
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form id="frm">
+			<div class="ui-fluid">
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<div class="card">
+					    	<h1>#{msg.cadastro_noticia}</h1>
+							<p:messages id="messages" />
+   							<p:focus for="titulo" />
+							
+							<p:inputText id="identificador" value="#{cadastroNoticiaBean.noticia.id}" type="hidden"/>
+							
+							<p:panelGrid id="dados" columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group" columnClasses="ui-grid-col-2, ui-grid-col-10">
+							
+								<p:outputLabel value="#{msg.cadastro_noticia_titulo}" for="titulo"/>
+								<p:inputText id="titulo" value="#{cadastroNoticiaBean.noticia.titulo}" placeholder="#{msg.cadastro_noticia_titulo_placeholder}" title="#{msg.cadastro_noticia_titulo_title}" required="true" requiredMessage="#{msg.cadastro_noticia_titulo_required}" maxlength="255" />
+
+								<p:outputLabel value="#{msg.cadastro_noticia_noticia}" for="noticia"/>
+								<p:textEditor id="noticia" value="#{cadastroNoticiaBean.noticia.noticia}" required="true" requiredMessage="#{msg.cadastro_noticia_noticia_required}" height="200" placeholder="#{msg.cadastro_noticia_noticia_placeholder}" />
+
+								<p:outputLabel value="#{msg.cadastro_noticia_autor}" for="autor"/>
+								<p:inputText id="autor" value="#{cadastroNoticiaBean.noticia.autor}" placeholder="#{msg.cadastro_noticia_autor_placeholder}" title="#{msg.cadastro_noticia_autor_title}" required="true" requiredMessage="#{msg.cadastro_noticia_autor_required}" maxlength="255" />
+							</p:panelGrid>
+						</div>
+						<p:button value="#{msg.button_cancelar}" outcome="#{cadastroNoticiaBean.navegarParaLista()}" style="width:100px;" />
+						<p:commandButton id="btnSalvar" value="#{msg.button_salvar}" action="#{cadastroNoticiaBean.salvar()}" ajax="false" style="width:100px" styleClass="float-right" />
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

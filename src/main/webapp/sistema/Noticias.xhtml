@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="../WEB-INF/templates/Template.xhtml">
+	
+	<ui:define name="title">
+		#{msg.noticias}
+	</ui:define>
+	
+	<ui:define name="content">
+			<div class="ui-fluid cn-noticias">
+				<div class="ui-g">
+					<div class="ui-g-12">
+					    	<h2>#{msg.noticias}</h2>
+							
+							<hr/>
+							<p:repeat var="noticia" value="#{cadastroNoticiaListaBean.noticias}">
+						<div class="card">
+								<p:panelGrid id="dados" columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group" columnClasses="ui-grid-col-12">
+									<h1>#{noticia.titulo}</h1>
+									
+									<p:row>
+									<h:outputLabel value="#{noticia.autor}"  styleClass="cn-noticia-informacao"/>
+									<br/>
+									<h:outputLabel value="#{noticia.dataAtualizacao == null ? formatDateBean.format(noticia.dataCriacao) : formatDateBean.format(noticia.dataAtualizacao)}"  styleClass="cn-noticia-informacao"/>
+									</p:row>
+									
+									<p:outputLabel value="#{noticia.noticia}" escape="false" styleClass="cn-noticia" />
+								</p:panelGrid>
+								
+						</div>
+								<br/>
+								<br/>
+							</p:repeat>
+					</div>
+				</div>
+			</div>
+	</ui:define>
+	
+</ui:composition>

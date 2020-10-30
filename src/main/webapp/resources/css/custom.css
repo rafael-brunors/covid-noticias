@@ -1,0 +1,24 @@
+.ui-grid-col-2 {
+	text-align: right;
+}
+
+.ui-widget {
+	font-size: 15px !important;
+}
+
+.cn-noticias {
+	padding: 20px 80px;
+}
+
+.cn-noticias h1 {
+	font-weight: bold;
+}
+
+.cn-noticia-informacao {
+	font-size: 13px!important;
+	margin-bottom: 0px;
+}
+
+.cn-noticia {
+	font-size: 22px!important;
+}
